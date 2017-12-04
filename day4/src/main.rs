@@ -5,25 +5,61 @@ use std::fs::File;
 
 fn main() {
     let f = BufReader::new(File::open("input.txt").expect("Opening input.txt failed"));
+    let lines: Vec<String> = f.lines()
+        .map(|l| l.expect("Reading lines failed"))
+        .collect();
 
-    let mut valid_passphrases = 0;
-    for line in f.lines() {
-        let raw_line = line.expect("Reading line failed");
-
+    // First star
+    let mut valid_first = 0;
+    for line in &lines {
         // Get a split of words without the redundant last one
-        let mut words: Vec<&str> = raw_line.split(' ').collect();
+        let mut words: Vec<&str> = line.split(' ').collect();
         words.pop();
 
         // Check if some of the words occurs more than once
-        valid_passphrases += 1;
+        valid_first += 1;
         let mut offset = 0;
         for (i, word) in words.iter().enumerate() {
             offset += words[i].len() + 1;
-            if raw_line[offset..].find(word) != None {
-                valid_passphrases -= 1;
+            if line[offset..].find(word) != None {
+                // Word found in remaining phrase, phrase is invalid
+                valid_first -= 1;
                 break;
             }
         }
     }
-    println!("{} valid passpharases", valid_passphrases);
+
+    // Second star
+    let mut valid_second = 0;
+    'phrases: for line in &lines {
+        // Save lengths and character counts for each word in phrase
+        let mut counts: Vec<(usize, Vec<u32>)> = Vec::new();
+        for word in line.split(' ') {
+            let mut chars: Vec<u32> = vec![0; 26];
+            for c in word.chars() {
+                chars[(c as u8 - 'a' as u8) as usize] += 1;
+            }
+            counts.push((word.len(), chars));
+        }
+
+        // Check every word against remaining words
+        for (i, ref_count) in counts.iter().enumerate() {
+            'remaining_words: for count in &counts[(i + 1)..counts.len()] {
+                // Only check if lengths match
+                if ref_count.0 == count.0 {
+                    for c in count.1.iter().zip(ref_count.1.iter()) {
+                        if c.0 != c.1 {
+                            // Words are not anagrams, check next word
+                            continue 'remaining_words;
+                        }
+                    }
+                    // Phrase is invalid, continue to next phrase
+                    continue 'phrases;
+                }
+            }
+        }
+        // No matches found
+        valid_second += 1;
+    }
+    println!("{}, {} valid passpharases", valid_first, valid_second);
 }
