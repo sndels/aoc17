@@ -8,30 +8,35 @@ fn main() {
     let mut input = String::new();
     f.read_to_string(&mut input).unwrap();
 
-    // Go through steps in hex-coordinates
-    let mut nw = 0;
-    let mut n = 0;
-    let mut ne = 0;
+    // Go through steps in cartesian coordinates
+    let mut x = 0;
+    let mut y = 0;
     let mut longest_dist = 0;
     for dir in input.split(',') {
-        match dir {
-            "n" => n += 1,
-            "ne" => ne += 1,
-            "se" => nw -= 1,
-            "s" => n -= 1,
-            "sw" => ne -= 1,
-            "nw" => nw += 1,
+        let (dx, dy) = match dir {
+            "n" => (0, 2),
+            "s" => (0, -2),
+            "nw" => (-2, 1),
+            "ne" => (2, 1),
+            "sw" => (-2, -1),
+            "se" => (2, -1),
             _ => panic!("Invalid direction"),
-        }
-        let dist = get_hexdist(nw, n, ne);
+        };
+        x += dx;
+        y += dy;
+
+        // Check if current cell is further away than previous max
+        let (nw, n, ne) = get_hex(x, y);
+        let dist = nw.abs() + n.abs() + ne.abs();
         if dist > longest_dist {
             longest_dist = dist;
         }
     }
 
+    let (nw, n, ne) = get_hex(x, y);
     println!(
         "Child is {} steps away (nw {} n {} ne {})",
-        get_hexdist(nw, n, ne),
+        nw.abs() + n.abs() + ne.abs(),
         nw,
         n,
         ne
@@ -39,15 +44,29 @@ fn main() {
     println!("Child was at most {} steps away", longest_dist);
 }
 
-fn get_hexdist(nw: i32, n: i32, ne: i32) -> i32 {
-    let a_nw = nw.abs();
-    let a_n = n.abs();
-    let a_ne = ne.abs();
-    if a_nw < a_n && a_nw < a_ne {
-        (n + ne).abs()
-    } else if a_n < a_nw && a_n < a_ne {
-        (nw + ne).abs()
+fn get_hex(x: i32, y: i32) -> (i32, i32, i32) {
+    let nw;
+    let n;
+    let ne;
+
+    // Convert cartesian to hex-grid
+    if x == 0 {
+        nw = 0;
+        n = y / 2;
+        ne = 0;
+    } else if y == 0 {
+        nw = -x / 4;
+        n = 0;
+        ne = x / 4;
+    } else if (y > 0 && x > 0) || (y < 0 && x < 0) {
+        nw = 0;
+        ne = x / 2;
+        n = (y - ne) / 2;
     } else {
-        (nw + n).abs()
+        nw = -x / 2;
+        n = (y - nw) / 2;
+        ne = 0
     }
+
+    (nw, n, ne)
 }
