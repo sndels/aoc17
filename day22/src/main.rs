@@ -11,14 +11,19 @@ fn main() {
         .flat_map(|l| l.expect("Invalid line").chars().collect::<Vec<char>>())
         .collect();
 
-    println!(
-        "{} bursts caused an infection in first star",
-        simulate(10000, &input_field, false)
-    );
-    println!(
-        "{} bursts caused an infection in second star",
-        simulate(10000000, &input_field, true)
-    );
+    // Simulate first star
+    let infections = simulate(10000, &input_field, false);
+    // Assert to facilitate further tweaks
+    assert_eq!(5570, infections);
+
+    println!("{} bursts caused an infection in first star", infections);
+
+    // Simulate second star
+    let infections = simulate(10000000, &input_field, true);
+    // Assert to facilitate further tweaks
+    assert_eq!(2512022, infections);
+
+    println!("{} bursts caused an infection in second star", infections);
 }
 
 // Runs given amount of bursts and returns count of bursts that caused an infection
@@ -101,6 +106,7 @@ fn simulate(bursts: usize, input_field: &Vec<char>, extended: bool) -> usize {
     infections
 }
 
+// Extends field in in all directions by (dim - 1) / 2
 fn extend_field(field: &Vec<char>) -> (Vec<char>, usize, usize) {
     // Initialize new larger field
     let dim = field_dim(field);
@@ -121,10 +127,12 @@ fn extend_field(field: &Vec<char>) -> (Vec<char>, usize, usize) {
     (new_field, new_dim, old_off)
 }
 
+// Returns the lengh of the field's side
 fn field_dim(field: &Vec<char>) -> usize {
     (field.len() as f64).sqrt() as usize
 }
 
+#[allow(dead_code)]
 fn print_field(field: &Vec<char>, x: usize, y: usize, dim: usize) {
     for j in 0..dim {
         let line = j * dim;

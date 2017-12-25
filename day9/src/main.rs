@@ -44,6 +44,9 @@ fn main() {
             }
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(11898, score);
+    assert_eq!(5601, garbage_chars);
 
     println!("Total score of {}", score);
     println!("{} chars of non-escaped garbage removed", garbage_chars);

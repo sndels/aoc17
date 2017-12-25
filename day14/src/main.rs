@@ -22,6 +22,8 @@ fn main() {
             })
             .sum::<u32>();
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(8316, used_space);
 
     println!("{} spaces used", used_space);
 
@@ -49,6 +51,9 @@ fn main() {
             }
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(1074, regions);
+
     println!("{} regions present", regions);
 }
 

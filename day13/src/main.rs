@@ -20,15 +20,18 @@ fn main() {
     }
     let layers = layers;
 
-    println!(
-        "Severity of the straight trip is {}",
-        check_severity(0, &layers)
-    );
+    let severity = check_severity(0, &layers);
+    // Assert to facilitate further tweaks
+    assert_eq!(1960, severity);
+
+    println!("Severity of the straight trip is {}", severity);
 
     let mut delay = 0;
     while !check_success(delay, &layers) {
         delay += 1;
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(3903378, delay);
 
     println!("Shortest delay to get through unscathed is {} ps", delay);
 }

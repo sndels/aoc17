@@ -49,8 +49,12 @@ fn main() {
         if !snd.is_empty() {
             rcv.push_back(snd.pop_front().unwrap());
         } else if rcv.len() < prev_len {
-            // Output first received value and break
-            println!("First sound received was {}", prev_sound.unwrap());
+            // Output a sound so printout the previous sound and break
+            let sound = prev_sound.unwrap();
+            // Assert to facilitate further tweaks
+            assert_eq!(1187, sound);
+
+            println!("First sound received was {}", sound);
             break;
         }
 
@@ -85,6 +89,9 @@ fn main() {
         pc0 = new_pc0;
         pc1 = new_pc1;
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(5969, sends);
+
     println!("Program 1 sent a value {} times", sends);
 }
 

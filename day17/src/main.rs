@@ -16,11 +16,11 @@ fn main() {
         // Value after "back" will be inserted to "front"
         buffer.insert(pos, i);
     }
+    let value = buffer[(pos + 1) % buffer.len()];
+    // Assert to facilitate further tweaks
+    assert_eq!(1311, value);
 
-    println!(
-        "The value after 2017 is {}",
-        buffer[(pos + 1) % buffer.len()]
-    );
+    println!("The value after 2017 is {}", value);
 
     // Second star
     pos = 0;
@@ -40,6 +40,8 @@ fn main() {
             after_zero = i;
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(39170601, after_zero);
 
     println!("The value after 0 is {}", after_zero);
 }

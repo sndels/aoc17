@@ -49,6 +49,9 @@ fn main() {
             largest_after = v;
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(4902, largest_after);
+    assert_eq!(7037, largest_during);
 
     println!("Largest value after execution is {}", largest_after);
     println!("Largest value during execution was {}", largest_during);

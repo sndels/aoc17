@@ -21,10 +21,9 @@ fn main() {
 
     // Follow route and count steps
     let mut letters = String::new();
-    let mut steps = 1;
+    let mut steps = 0;
     while dir != Dir::Stop {
         steps += 1;
-        println!("At {} {} with value {}", x, y, diagram[y][x]);
         // Check current character
         match diagram[y][x] {
             // Keep track of letters and check if packet should stop
@@ -48,6 +47,9 @@ fn main() {
             Dir::Stop => {}
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!("DTOUFARJQ", letters);
+    assert_eq!(16642, steps);
 
     println!(
         "The packet saw letters '{}' and took {} steps",

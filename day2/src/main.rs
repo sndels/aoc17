@@ -22,6 +22,8 @@ fn main() {
     for row in &rows {
         first_checksum += row.last().expect("Row Empty") - row.first().expect("Row Empty");
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(42378, first_checksum);
 
     let mut second_checksum: u32 = 0;
     for row in &rows {
@@ -34,6 +36,8 @@ fn main() {
             }
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(246, second_checksum);
 
     println!(
         "The first checksum is {} and the second {}",

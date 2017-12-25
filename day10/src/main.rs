@@ -6,11 +6,11 @@ fn main() {
     let input = [120, 93, 0, 90, 5, 80, 129, 74, 1, 165, 204, 255, 254, 2, 50, 113].to_vec();
 
     let sparse_hash = knot_hash(&input, 1, 0, 0);
+    let product = sparse_hash[0] as u16 * sparse_hash[1] as u16;
+    // Assert to facilitate further tweaks
+    assert_eq!(826, product);
 
-    println!(
-        "The product of the first two elements is {}",
-        sparse_hash[0] as u16 * sparse_hash[1] as u16
-    );
+    println!("The product of the first two elements is {}", product);
 
     // Second star
     // Convert input to a vector of ASCII codes
@@ -33,6 +33,8 @@ fn main() {
             .for_each(|e| output ^= e);
         dense_hash += &format!("{:02x}", output);
     }
+    // Assert to facilitate further tweaks
+    assert_eq!("d067d3f14d07e09c2e7308c3926605c4", dense_hash);
 
     println!("The dense hash is {}", dense_hash);
 }

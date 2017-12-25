@@ -34,13 +34,12 @@ fn main() {
     }
 
     let (nw, n, ne) = get_hex(x, y);
-    println!(
-        "Child is {} steps away (nw {} n {} ne {})",
-        nw.abs() + n.abs() + ne.abs(),
-        nw,
-        n,
-        ne
-    );
+    let dist = nw.abs() + n.abs() + ne.abs();
+    // Assert to facilitate further tweaks
+    assert_eq!(805, dist);
+    assert_eq!(1535, longest_dist);
+
+    println!("Child is {} steps away (nw {} n {} ne {})", dist, nw, n, ne);
     println!("Child was at most {} steps away", longest_dist);
 }
 

@@ -25,6 +25,8 @@ fn main() {
         pc += jmp;
         steps += 1;
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(374269, steps);
 
     println!("{} steps to reach the exit of the first star", steps);
 
@@ -38,6 +40,8 @@ fn main() {
         pc += jmp;
         steps += 1;
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(27720699, steps);
 
     println!("and {} steps to reach the second", steps);
 }

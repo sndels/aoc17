@@ -48,7 +48,6 @@ fn main() {
         some_decelerating = false;
         some_closing_in = false;
         last_collision += 1;
-        println!("Tick {} since collision", last_collision);
         // Simulate
         for &i in &alive {
             let p = &mut particles[i];
@@ -102,6 +101,10 @@ fn main() {
             }
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(170, closest.0);
+    assert_eq!(571, alive.len());
+
     println!("Particle {} will stay closest", closest.0);
     println!("{} particles remain", alive.len());
 }

@@ -25,6 +25,8 @@ fn main() {
     if digits.first() == digits.last() {
         first_sum += digits.first().expect("List of digits was empty");
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(1203, first_sum);
 
     let mut second_sum: u32 = 0;
     let offset = digits.len() / 2;
@@ -33,6 +35,8 @@ fn main() {
             second_sum += digits[i];
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(1146, second_sum);
 
     println!(
         "First captcha solution is {} and the second {}",

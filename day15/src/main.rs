@@ -15,6 +15,8 @@ fn main() {
             matches += 1;
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(567, matches);
 
     println!("{} out of 40 million pairs match", matches);
 
@@ -40,6 +42,8 @@ fn main() {
             matches += 1;
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(323, matches);
 
     println!("{} out of 5 million pairs match", matches);
 }

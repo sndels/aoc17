@@ -40,23 +40,30 @@ fn main() {
     let mut image: Vec<char> = ".#...####".chars().collect();
 
     // Run first 5 iterations
-    for i in 0..5 {
-        println!("iter {}", i);
+    for _ in 0..5 {
         image = enhance(&image, &rules2, &rules3);
     }
 
-    println!(
-        "{} pixels on after 5 iterations",
-        image
-            .iter()
-            .fold(0, |acc, &c| if c == '#' { acc + 1 } else { acc })
-    );
+    // Count pixels that are on
+    let on_pixels = image
+        .iter()
+        .fold(0, |acc, &c| if c == '#' { acc + 1 } else { acc });
+    // Assert to facilitate further tweaks
+    assert_eq!(197, on_pixels);
+
+    println!("{} pixels on after 5 iterations", on_pixels);
 
     // Run rest of 18 iterations
-    for i in 5..18 {
-        println!("iter {}", i);
+    for _ in 5..18 {
         image = enhance(&image, &rules2, &rules3);
     }
+
+    // Count pixels that are on
+    let on_pixels = image
+        .iter()
+        .fold(0, |acc, &c| if c == '#' { acc + 1 } else { acc });
+    // Assert to facilitate further tweaks
+    assert_eq!(3081737, on_pixels);
 
     println!(
         "{} pixels on after 18 iterations",
@@ -179,6 +186,7 @@ fn gen_image(sub_images: &Vec<usize>, rules: &Vec<(Vec<Vec<char>>, Vec<char>)>) 
 }
 
 // Prints the given image
+#[allow(dead_code)]
 fn print_image(image: &Vec<char>) {
     let dim = (image.len() as f64).sqrt() as usize;
     image.chunks(dim).for_each(|l| {

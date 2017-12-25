@@ -28,6 +28,8 @@ fn main() {
             }
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(477, valid_first);
 
     // Second star
     let mut valid_second = 0;
@@ -61,5 +63,8 @@ fn main() {
         // No matches found
         valid_second += 1;
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(167, valid_second);
+
     println!("{}, {} valid passpharases", valid_first, valid_second);
 }

@@ -19,11 +19,11 @@ fn main() {
     }
 
     // Checksum is simply adding the on bits together
-    println!(
-        "The diagnostic checksum is {} after 12172063",
-        tape.iter()
-            .fold(0, |acc, &b| if b == true { acc + 1 } else { acc })
-    );
+    let checksum = tape.iter()
+        .fold(0, |acc, &b| if b == true { acc + 1 } else { acc });
+    // Assert to facilitate tweaks
+    assert_eq!(2474, checksum);
+    println!("The diagnostic checksum is {} after 12172063", checksum);
 }
 
 fn step(mut position: usize, mut state: State, tape: &mut VecDeque<bool>) -> (usize, State) {

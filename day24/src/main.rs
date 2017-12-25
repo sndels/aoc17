@@ -27,14 +27,20 @@ fn main() {
         ));
     }
 
-    println!(
-        "Strength of the strongest bridge is {}",
-        get_max_strength(0, 0, HashSet::from_iter(components.iter().cloned()))
-    );
-    println!(
-        "Max strength of the longest bridge is {}",
-        get_longest_max_strength(0, 0, 0, HashSet::from_iter(components.iter().cloned())).1
-    );
+    // Get strength of the strongest bridge
+    let strength = get_max_strength(0, 0, HashSet::from_iter(components.iter().cloned()));
+    // Assert to facilitate further tweaks
+    assert_eq!(1511, strength);
+
+    println!("Strength of the strongest bridge is {}", strength);
+
+    // Get strength of the longest (strongest of if multiple) bridge
+    let strength =
+        get_longest_max_strength(0, 0, 0, HashSet::from_iter(components.iter().cloned())).1;
+    // Assert to facilitate further tweaks
+    assert_eq!(1471, strength);
+
+    println!("Max strength of the longest bridge is {}", strength);
 }
 
 // Finds the max strength achievable from the open port with unused components

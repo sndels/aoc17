@@ -32,17 +32,19 @@ fn main() {
 
     // First star
 
-    println!(
-        "There are {} nodes in program 0's group",
-        find_connected(0, &programs).len()
-    );
+    // Find number of programs in 0's group
+    let group_size = find_connected(0, &programs).len();
+    // Assert to facilitate further tweaks
+    assert_eq!(288, group_size);
+
+    println!("There are {} nodes in program 0's group", group_size);
 
     // Second star
 
     let mut visited: HashSet<u16> = HashSet::new();
     let mut groups = 0;
 
-    // Run dfs through the whole map
+    // Run dfs through the whole map to find all groups
     for (&node, _) in &programs {
         if !visited.contains(&node) {
             // Found a new group
@@ -51,6 +53,8 @@ fn main() {
             visited.extend(find_connected(node, &programs).iter());
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(211, groups);
 
     println!("There are {} groups in total", groups);
 }

@@ -43,11 +43,15 @@ fn main() {
         Direction::Right => x += remaining - 1,
     }
 
+    let path_len = x.abs() + y.abs();
+    // Assert to facilitate further tweaks
+    assert_eq!(430, path_len);
+
     println!(
         "Square located at x:{} y:{}, shortest path to start is {}",
         x,
         y,
-        x.abs() + y.abs()
+        path_len
     );
 
     // Second star
@@ -127,10 +131,10 @@ fn main() {
         }
     }
 
-    println!(
-        "Next written value would be {}",
-        sums.last().expect("Sums empty")
-    );
+    let next = *sums.last().expect("Sums empty");
+    // Assert to facilitate further tweaks
+    assert_eq!(312453, next);
+    println!("Next written value would be {}", next);
 }
 
 enum Direction {

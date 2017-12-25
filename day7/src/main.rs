@@ -51,6 +51,8 @@ fn main() {
         }
     }
     let root = program_names.into_iter().last().unwrap();
+    // Assert to facilitate further tweaks
+    assert_eq!("gynfwly", root);
 
     println!("The root is {}", root);
 
@@ -62,6 +64,7 @@ fn main() {
     node_stack.push(vec![root; 1]);
 
     // Do dfs while accumulating stack sums until the incorrect node is found
+    let mut corrected_weight = 0;
     'dfs: while node_stack.len() > 0 {
         // Check if unhandled nodes remain in topmost list
         if node_stack.last_mut().unwrap().len() > 0 {
@@ -95,14 +98,13 @@ fn main() {
             // Compare children's weights
             for i in 1..(weights.len() - 1) {
                 if weights[i - 1].1 != weights[i].1 {
-                    let corrected_weight = if weights[i].1 != weights[i + 1].1 {
+                    corrected_weight = if weights[i].1 != weights[i + 1].1 {
                         // Current weight is incorrect
                         weights[i].0 + (weights[i - 1].1 - weights[i].1)
                     } else {
                         // Previous weight is incorrect
                         weights[i - 1].0 + (weights[i].1 - weights[i - 1].1)
                     };
-                    println!("Corrected weight should be {}", corrected_weight);
                     break 'dfs;
                 }
             }
@@ -115,4 +117,8 @@ fn main() {
                 .push((weight, weight + weights[0].1 * weights.len() as i32));
         }
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(1526, corrected_weight);
+
+    println!("Corrected weight should be {}", corrected_weight);
 }

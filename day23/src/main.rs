@@ -16,6 +16,8 @@ fn main() {
         }
         pc = new_pc;
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(9409, mults);
 
     println!("Mul is invoked {} times", mults);
 
@@ -58,6 +60,8 @@ fn main() {
         }
         b += 17;
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(913, h);
 
     println!("Register h holds {}", h);
 }

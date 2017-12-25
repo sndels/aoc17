@@ -53,6 +53,9 @@ fn main() {
         }
         cycles += 1;
     }
+    // Assert to facilitate further tweaks
+    assert_eq!(5042, cycles);
+    assert_eq!(1086, loop_cycles);
 
     println!("{} cycles needed, {} cycles in loop", cycles, loop_cycles);
 }

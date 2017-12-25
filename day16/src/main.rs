@@ -58,9 +58,11 @@ fn main() {
     let mut programs = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'];
     dance(&mut programs, &moves);
 
-    print!("Programs after first dance: ");
-    programs.iter().for_each(|&p| print!("{}", p));
-    println!();
+    let programs_str: String = programs.iter().collect();
+    // Assert to facilitate further tweaks
+    assert_eq!("giadhmkpcnbfjelo", programs_str);
+
+    println!("Programs after first dance: {}", programs_str);
 
     // Measure the cycle of the dance
     #[cfg_attr(rustfmt, rustfmt_skip)]
@@ -74,9 +76,11 @@ fn main() {
     // Perform the remainder of one billion / cycle dances
     (0..(1000000000 % cycle)).for_each(|_| dance(&mut programs, &moves));
 
-    print!("Programs after a billion dances: ");
-    programs.iter().for_each(|&p| print!("{}", p));
-    println!();
+    let programs_str: String = programs.iter().collect();
+    // Assert to facilitate further tweaks
+    assert_eq!("njfgilbkcoemhpad", programs_str);
+
+    println!("Programs after a billion dances: {}", programs_str);
 }
 
 fn dance(programs: &mut [char; 16], moves: &Vec<(Move, usize, usize)>) {
