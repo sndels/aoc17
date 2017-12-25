@@ -12,12 +12,12 @@ fn main() {
     // First star
     let mut valid_first = 0;
     for line in &lines {
-        // Get a split of words without the redundant last one
+        // Get list of words without the last one
         let mut words: Vec<&str> = line.split(' ').collect();
         words.pop();
 
-        // Check if some of the words occurs more than once
         valid_first += 1;
+        // Try to find each word in the remaining line
         let mut offset = 0;
         for (i, word) in words.iter().enumerate() {
             offset += words[i].len() + 1;

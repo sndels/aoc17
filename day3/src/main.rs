@@ -4,13 +4,17 @@ const INPUT: i32 = 312051;
 
 fn main() {
     // First star
+    // Go through spiral with full "strides", length increases by one in two corners
+    // * < * * *
+    // * * < * ^
+    // * v > ^ *
+    // v * * > *
+    // * * * * >
     let mut stride_len = 1;
     let mut remaining = INPUT;
     let mut x: i32 = 0;
     let mut y: i32 = 0;
     let mut dir = Direction::Right;
-
-    // Go through spiral with full "strides", length increases by one in two corners
     while remaining - stride_len > 0 {
         remaining -= stride_len;
         match dir {
@@ -64,7 +68,7 @@ fn main() {
     let mut sums: Vec<i32> = Vec::new();
     sums.push(1);
 
-    // Take single steps from first square
+    // Take single steps from first square until one past given index
     while *sums.last().expect("Empty vector") <= INPUT {
         // Get neighbors
         let neighbors = match dir {
@@ -101,6 +105,7 @@ fn main() {
                 sum += sums[neighbors[i] as usize];
             }
         }
+        // Set value of current node
         sums.push(sum);
 
         // Step
@@ -137,13 +142,7 @@ fn main() {
     println!("Next written value would be {}", next);
 }
 
-enum Direction {
-    Up,
-    Left,
-    Down,
-    Right,
-}
-
+// Returns linear tile index based on coordinates
 fn get_tile_index(x: i32, y: i32) -> i32 {
     if y * y >= x * x {
         if y < x {
@@ -158,4 +157,11 @@ fn get_tile_index(x: i32, y: i32) -> i32 {
             4 * x * x - y - x
         }
     }
+}
+
+enum Direction {
+    Up,
+    Left,
+    Down,
+    Right,
 }

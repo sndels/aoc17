@@ -6,18 +6,19 @@ use std::fs::File;
 fn main() {
     let f = BufReader::new(File::open("input.txt").expect("Opening input.txt failed"));
 
-    let mut rows: Vec<Vec<u32>> = Vec::new();
-    for line in f.lines() {
-        let mut row_nums: Vec<u32> = line.expect("Reading line failed")
-            .split('\t')
-            .map(|x| x.parse::<u32>().expect("Invalid number"))
-            .collect();
-        rows.push(row_nums);
-    }
+    let mut rows: Vec<Vec<u32>> = f.lines()
+        .map(|l| {
+            l.expect("Reading line failed")
+                .split('\t')
+                .map(|x| x.parse::<u32>().expect("Invalid number"))
+                .collect()
+        })
+        .collect();
     // Sort to make second part nicer, also trivializes first part
     rows.iter_mut().for_each(|row| row.sort_unstable());
     let rows = rows;
 
+    // Sum sums of the smallest and largest values per row
     let mut first_checksum: u32 = 0;
     for row in &rows {
         first_checksum += row.last().expect("Row Empty") - row.first().expect("Row Empty");
@@ -25,6 +26,7 @@ fn main() {
     // Assert to facilitate further tweaks
     assert_eq!(42378, first_checksum);
 
+    // Sum division results of the two values per row that divide evenly
     let mut second_checksum: u32 = 0;
     for row in &rows {
         'row_loop: for i in 0..row.len() {
